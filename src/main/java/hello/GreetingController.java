@@ -3,6 +3,8 @@ package hello;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import spider.Spider;
+import sun.security.provider.ConfigFile;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -16,11 +18,23 @@ public class GreetingController {
 
     //  当用户访问 /greeting 这个路径的时候 ， 请Spring框架调用这个方法去执行相关的逻辑
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+    public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         // count += 1 ; return counter
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+        // return new Greeting(counter.incrementAndGet(), String.format(template, name));
+
+        return String.format(template, name);
 
 
+    }
+
+    @RequestMapping("/spider")
+    public String spider(@RequestParam(value = "startUrl", defaultValue = "") String startUrl) {
+        Spider spider = new Spider(startUrl);
+
+        spider.start();
+
+        String result = spider.getResult();
+        return result;
     }
 
     // 框架  -- 框架负责调用你的代码
