@@ -1,4 +1,6 @@
+user\UserController.class
+user\Application.class
 hello\Application.class
 hello\Greeting.class
 hello\GreetingController.class
-spider\Spider.class
+user\User.class
