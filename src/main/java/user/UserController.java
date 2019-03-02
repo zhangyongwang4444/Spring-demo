@@ -1,5 +1,7 @@
 package user;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,9 +25,9 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    User newUser(@RequestBody User user) {
+    ResponseEntity<User> newUser(@RequestBody User user) {
         users.put(user.getName(), user);
-        return users.get(user.getName());
+        return new ResponseEntity<>(users.get(user.getName()), HttpStatus.CREATED);
     }
 
     @PutMapping("/users/{name}")
